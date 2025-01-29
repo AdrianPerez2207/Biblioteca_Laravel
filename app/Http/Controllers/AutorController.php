@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AutorResource;
 use App\Models\Autor;
 use Illuminate\Http\Request;
 
@@ -61,5 +62,24 @@ class AutorController extends Controller
     public function destroy(Autor $autor)
     {
         //
+    }
+
+    /*
+     * Obtenemos todos los autores de forma paginada.
+     * Devolvemos la colección de autores llamando al Resource.
+     */
+    public function api_index(){
+        $autores = Autor::paginate(3);
+
+        return AutorResource::collection($autores);
+    }
+    /*
+     * Obtenemos un autor por su id.
+     * Devolvemos el autor llamando al Resource.
+     */
+    public function api_show($id){
+        $autor = Autor::find($id);
+
+        return AutorResource::make($autor);
     }
 }

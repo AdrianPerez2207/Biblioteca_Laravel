@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('titulo');
-            $table->string('isbn');
+            $table->string('isbn')->unique();
             $table->string('portada');
             $table->integer('anio_publicacion');
             $table->enum('estado', ['disponible', 'prestado', 'extraviado']);
