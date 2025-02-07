@@ -33,7 +33,8 @@
                     <td class="py-3 px-6 text-center">
                         <button class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 mr-2">Editar
                         </button>
-                        <a href="{{route('autores.destroy', ['autor', $autor->id])}}"
+                        <!--Le pasamos la ruta y el parámetro a la función destroy-->
+                        <a href="{{route('autores.destroy', $autor->id)}}"
                            class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Borrar</a>
                     </td>
                 </tr>

@@ -6,7 +6,7 @@ use App\Http\Controllers\UbicacionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/autores', [AutorController::class, 'index'])->name('autores.index');
-Route::get('/autores/delete/${autor}', [AutorController::class, 'destroy'])->name('autores.destroy');
+Route::get('/autores/delete/{autor}', [AutorController::class, 'destroy'])->name('autores.destroy');
 
 Route::get('/', [LibroController::class, 'index']) ->name('libros.index');
 
