@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\AutorResource;
 use App\Models\Autor;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class AutorController extends Controller
 {
@@ -13,7 +14,8 @@ class AutorController extends Controller
      */
     public function index()
     {
-        //
+        $autores = Autor::all();
+        return \view('VistaAutor', ['autores' => $autores]);
     }
 
     /**
@@ -61,7 +63,8 @@ class AutorController extends Controller
      */
     public function destroy(Autor $autor)
     {
-        //
+        $autor->delete();
+        return redirect()->route('autores.index');
     }
 
     /*

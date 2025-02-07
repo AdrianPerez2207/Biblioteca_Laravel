@@ -12,7 +12,8 @@ class UbicacionController extends Controller
      */
     public function index()
     {
-        //
+        $ubicaciones = Ubicacion::all();
+        return \view('VistaUbicaciones', ['ubicaciones' => $ubicaciones]);
     }
 
     /**
