@@ -15,6 +15,10 @@ class UbicacionController extends Controller
         $ubicaciones = Ubicacion::all();
         return \view('VistaUbicaciones', ['ubicaciones' => $ubicaciones]);
     }
+    public function newLocation()
+    {
+        return \view('NuevaUbicacion');
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -61,6 +65,7 @@ class UbicacionController extends Controller
      */
     public function destroy(Ubicacion $ubicacion)
     {
-        //
+        $ubicacion->delete();
+        return redirect()->route('ubicaciones.index');
     }
 }

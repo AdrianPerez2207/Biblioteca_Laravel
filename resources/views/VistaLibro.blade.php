@@ -25,15 +25,13 @@
 
     <!-- Add New Book Button -->
     <div class="mb-6 flex justify-end">
-        <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Añadir Nuevo Libro</button>
+        <a href="{{route('libros.newBook')}}" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Añadir Nuevo Libro</a>
     </div>
 
     <!-- Books Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
         @foreach($libros as $libro)
-            <x-carta-libro :src="$libro->portada" :isbn="$libro->isbn" :titulo="$libro->titulo"
-                           :anio="$libro->anio_publicacion" :estado="$libro->estado" :autor="$libro->autor->nombre"
-                           :ubicacion="$libro->ubicacion->biblioteca"/>
+            <x-carta-libro :libro="$libro" />
         @endforeach
     </div>
 

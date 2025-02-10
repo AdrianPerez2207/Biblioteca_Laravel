@@ -8,7 +8,7 @@
             <input type="text" placeholder="Buscar por nacionalidad" class="p-2 border rounded">
             <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Buscar</button>
         </div>
-        <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Añadir Nuevo Autor</button>
+        <a href="{{route('autores.newAuthor')}}" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Añadir Nuevo Autor</a>
     </div>
 
     <!-- Authors Table -->

@@ -18,6 +18,10 @@ class LibroController extends Controller
         $libros = Libro::all();
         return \view('VistaLibro', ['libros' => $libros]);
     }
+    public function newBook()
+    {
+        return \view('NuevoLibro');
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -64,7 +68,8 @@ class LibroController extends Controller
      */
     public function destroy(Libro $libro)
     {
-        //
+        $libro->delete();
+        return redirect()->route('libros.index');
     }
     /*
      * Obtenemos todos los libros de forma paginada.

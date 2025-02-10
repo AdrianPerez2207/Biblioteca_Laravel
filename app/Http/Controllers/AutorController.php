@@ -17,13 +17,17 @@ class AutorController extends Controller
         $autores = Autor::all();
         return \view('VistaAutor', ['autores' => $autores]);
     }
+    public function newAuthor()
+    {
+        return \view('NuevoAutor');
+    }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Autor $autor)
     {
-        //
+
     }
 
     /**

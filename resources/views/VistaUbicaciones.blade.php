@@ -3,7 +3,7 @@
 
     <!-- Add New Location Button -->
     <div class="mb-6">
-        <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Añadir Nueva Ubicación</button>
+        <a href="{{route('ubicaciones.newLocation')}}" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Añadir Nueva Ubicación</a>
     </div>
 
     <div class="bg-white shadow-md rounded-lg overflow-hidden">
@@ -30,7 +30,7 @@
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                         <button class="text-blue-600 hover:text-blue-900 mr-2">Ver Libros</button>
-                        <button class="text-red-600 hover:text-red-900">Eliminar</button>
+                        <a href="{{route('ubicaciones.destroy', $ubicacion->id)}}" class="text-red-600 hover:text-red-900">Eliminar</a>
                     </td>
                 </tr>
             @endforeach
