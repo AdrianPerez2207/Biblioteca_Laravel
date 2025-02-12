@@ -6,6 +6,7 @@ use App\Http\Resources\AutorResource;
 use App\Models\Autor;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use function Laravel\Prompts\table;
 
 class AutorController extends Controller
 {
@@ -14,12 +15,8 @@ class AutorController extends Controller
      */
     public function index()
     {
-        $autores = Autor::all();
-        return \view('VistaAutor', ['autores' => $autores]);
-    }
-    public function newAuthor()
-    {
-        return \view('NuevoAutor');
+        $autores = Autor::paginate(10);
+        return \view('vistaAutor', ['autores' => $autores]);
     }
 
     /**
@@ -27,7 +24,7 @@ class AutorController extends Controller
      */
     public function create(Autor $autor)
     {
-
+        return \view('nuevoAutor');
     }
 
     /**
@@ -35,7 +32,15 @@ class AutorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Autor::create([
+            'nombre' => $request->nombre,
+            'nacionalidad' => $request->nacionalidad,
+            'fecha_nacimiento' => $request->fecha_nacimiento,
+            'biografia' => $request->biografia,
+            'codigoDewey' => str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT), // Generar código Dewey aleatorio
+        ]);
+
+        return redirect()->route('autores.index')->with('mensaje', 'Autor creado correctamente');
     }
 
     /**

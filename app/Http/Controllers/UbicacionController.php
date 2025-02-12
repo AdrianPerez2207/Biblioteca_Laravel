@@ -13,11 +13,11 @@ class UbicacionController extends Controller
     public function index()
     {
         $ubicaciones = Ubicacion::all();
-        return \view('VistaUbicaciones', ['ubicaciones' => $ubicaciones]);
+        return \view('vistaUbicaciones', ['ubicaciones' => $ubicaciones]);
     }
     public function newLocation()
     {
-        return \view('NuevaUbicacion');
+
     }
 
     /**
@@ -25,7 +25,7 @@ class UbicacionController extends Controller
      */
     public function create()
     {
-        //
+        return \view('nuevaUbicacion');
     }
 
     /**

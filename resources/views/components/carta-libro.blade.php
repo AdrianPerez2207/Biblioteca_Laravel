@@ -6,7 +6,7 @@
             <img class="h-56 w-full object-cover rounded-md" src="" alt="Portada del libro">
             <div class="mt-4">
                 <div class="text-xs text-blue-600 font-semibold">ISBN: {{$libro->isbn}}</div>
-                <h2 class="mt-1 text-xl font-bold text-gray-900 leading-tight">{{$libro->titulo}}</h2>
+                <h2 class="mt-1 text-xl font-bold text-gray-900 leading-tight truncate">{{$libro->titulo}}</h2>
                 <p class="mt-1 text-sm text-gray-600">Año: {{$libro->anio_publicacion}}</p>
                 <div class="mt-2">
                     @if($libro->estado == 'disponible')
@@ -28,9 +28,9 @@
                     <p class="text-gray-700"><span class="font-semibold">Autor:</span> {{$libro->autor->nombre}}</p>
                     <p class="text-gray-700"><span class="font-semibold">Ubicación:</span> {{$libro->ubicacion->biblioteca}}</p>
                 </div>
-                <div class="mt-4 flex flex-wrap gap-2">
+                <div class="mt-4 flex flex-wrap gap-2 items-center justify-center">
                     <button class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600">Editar</button>
-                    <button class="bg-yellow-500 text-white px-3 py-1 rounded text-sm hover:bg-yellow-600">Prestar</button>
+                    <a href="{{route('libros.prestar', $libro->id)}}" class="bg-yellow-500 text-white px-3 py-1 rounded text-sm hover:bg-yellow-600">Estado</a>
                     <a href="{{route('libros.destroy', $libro->id)}}"  class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">Eliminar</a>
                 </div>
             </div>

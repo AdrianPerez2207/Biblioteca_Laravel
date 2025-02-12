@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\LibroISBNResource;
 use App\Http\Resources\LibroResource;
+use App\Models\Autor;
 use App\Models\Libro;
+use App\Models\Ubicacion;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
@@ -15,20 +17,17 @@ class LibroController extends Controller
      */
     public function index()
     {
-        $libros = Libro::all();
-        return \view('VistaLibro', ['libros' => $libros]);
+        $libros = Libro::paginate(12);
+        return \view('vistaLibro', ['libros' => $libros]);
     }
-    public function newBook()
-    {
-        return \view('NuevoLibro');
-    }
-
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        $autores = Autor::all();
+        $ubicaciones = Ubicacion::all();
+        return \view('nuevoLibro', compact('autores', 'ubicaciones'));
     }
 
     /**
@@ -36,7 +35,16 @@ class LibroController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Libro::create([
+            'titulo' => $request->titulo,
+            'isbn' => str_pad(rand(0, 9999999999999),13, 0, STR_PAD_LEFT),
+            'portada' => $request->portada,
+            'anio_publicacion' => $request->anio_publicacion,
+            'estado' => 'disponible',
+            'autor_id' => $request->autor,
+            'ubicacion_id' => $request->ubicacion
+        ]);
+        return redirect()->route('libros.index')->with('mensaje', 'Libro creado correctamente');
     }
 
     /**
@@ -70,6 +78,21 @@ class LibroController extends Controller
     {
         $libro->delete();
         return redirect()->route('libros.index');
+    }
+    public function prestar(Request $request, Libro $libro)
+    {
+        if ($libro->estado == 'disponible'){
+            $libro->estado = 'prestado';
+            $libro->save();
+        } elseif ($libro->estado == 'prestado'){
+            $libro->estado = 'extraviado';
+            $libro->save();
+        } else{
+            $libro->estado = 'disponible';
+            $libro->save();
+        }
+
+        return back();
     }
     /*
      * Obtenemos todos los libros de forma paginada.

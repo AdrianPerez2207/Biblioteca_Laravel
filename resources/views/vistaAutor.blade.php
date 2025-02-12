@@ -1,17 +1,17 @@
 <x-layouts.layout-index title="Gestión de Autores">
     <h2 class="text-3xl font-bold mb-6">Gestión de Autores</h2>
 
-    <!-- Search and Add Section -->
+    <!--Sección de búsqueda -->
     <div class="mb-6 flex flex-wrap items-center justify-between gap-4">
         <div class="flex flex-wrap gap-4">
             <input type="text" placeholder="Buscar por nombre" class="p-2 border rounded">
             <input type="text" placeholder="Buscar por nacionalidad" class="p-2 border rounded">
             <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Buscar</button>
         </div>
-        <a href="{{route('autores.newAuthor')}}" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Añadir Nuevo Autor</a>
+        <a href="{{route('autores.create')}}" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Añadir Nuevo Autor</a>
     </div>
 
-    <!-- Authors Table -->
+    <!-- Tabla autores -->
     <div class="overflow-x-auto">
         <table class="w-full bg-white shadow-md rounded">
             <thead>
@@ -41,5 +41,8 @@
             @endforeach
             </tbody>
         </table>
+    </div>
+    <div class="mt-5">
+        {{$autores->links()}}
     </div>
 </x-layouts.layout-index>

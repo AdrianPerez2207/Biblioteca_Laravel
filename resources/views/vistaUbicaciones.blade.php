@@ -1,9 +1,9 @@
 <x-layouts.layout-index title="Gestión de Ubicaciones">
     <h2 class="text-3xl font-bold mb-6">Gestión de Ubicaciones</h2>
 
-    <!-- Add New Location Button -->
+    <!-- Añadir nueva ubicación -->
     <div class="mb-6">
-        <a href="{{route('ubicaciones.newLocation')}}" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Añadir Nueva Ubicación</a>
+        <a href="{{route('ubicaciones.create')}}" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Añadir Nueva Ubicación</a>
     </div>
 
     <div class="bg-white shadow-md rounded-lg overflow-hidden">
