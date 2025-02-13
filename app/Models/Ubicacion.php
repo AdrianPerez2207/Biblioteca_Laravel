@@ -12,6 +12,11 @@ class Ubicacion extends Model
     /** @use HasFactory<\Database\Factories\UbicacionFactory> */
     use HasFactory;
     protected $table = 'ubicaciones';
+    protected $fillable = [
+        'biblioteca',
+        'direccion',
+        'numero_estanteria'
+    ];
 
     public function libros(): HasMany
     {

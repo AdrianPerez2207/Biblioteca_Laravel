@@ -42,6 +42,19 @@ class AutorController extends Controller
 
         return redirect()->route('autores.index')->with('mensaje', 'Autor creado correctamente');
     }
+    /**
+     * Le pasamos a través del formulario los campos que queremos buscar.
+     * @param Request $request
+     * @return el objeto o los objetos que concuerde con la búsqueda
+     */
+    public function search(Request $request)
+    {
+        $autores = Autor::where('nombre', 'like', '%'.$request->nombre.'%')
+            ->where('nacionalidad', 'like', '%'.$request->nacionalidad.'%')
+            ->paginate(10);
+
+        return view('vistaAutor', ['autores' => $autores]);
+    }
 
     /**
      * Display the specified resource.
@@ -56,7 +69,7 @@ class AutorController extends Controller
      */
     public function edit(Autor $autor)
     {
-        //
+        return \view('editarAutor', ['autor' => $autor]);
     }
 
     /**
@@ -64,7 +77,9 @@ class AutorController extends Controller
      */
     public function update(Request $request, Autor $autor)
     {
-        //
+        $autor->update($request->all());
+        $autor->save();
+        return redirect()->route('autores.index')->with('mensaje', 'Autor actualizado correctamente');
     }
 
     /**

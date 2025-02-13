@@ -29,7 +29,7 @@
                     <p class="text-gray-700"><span class="font-semibold">Ubicación:</span> {{$libro->ubicacion->biblioteca}}</p>
                 </div>
                 <div class="mt-4 flex flex-wrap gap-2 items-center justify-center">
-                    <button class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600">Editar</button>
+                    <a href="{{route('libros.edit', $libro->id)}}" class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600">Editar</a>
                     <a href="{{route('libros.prestar', $libro->id)}}" class="bg-yellow-500 text-white px-3 py-1 rounded text-sm hover:bg-yellow-600">Estado</a>
                     <a href="{{route('libros.destroy', $libro->id)}}"  class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">Eliminar</a>
                 </div>

@@ -9,6 +9,8 @@ use App\Models\Libro;
 use App\Models\Ubicacion;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Termwind\Components\Li;
+use function PHPUnit\Framework\isNull;
 
 class LibroController extends Controller
 {
@@ -19,6 +21,18 @@ class LibroController extends Controller
     {
         $libros = Libro::paginate(12);
         return \view('vistaLibro', ['libros' => $libros]);
+    }
+
+    /**
+     * Recuperamos los autores, ubicaiones, libros y estados para mostrarlos en la vista.
+     */
+    public function reporte()
+    {
+        $autores = Autor::all();
+        $ubicaciones = Ubicacion::all();
+        $libros = Libro::paginate(12);
+        $estados = Libro::select('estado')->distinct()->get();
+        return \view('reporteBiblioteca', ['libros' => $libros], compact('autores', 'ubicaciones', 'estados'));
     }
     /**
      * Show the form for creating a new resource.
@@ -48,11 +62,41 @@ class LibroController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Le pasamos a través del formulario los campos que queremos buscar.
+     * @param Request $request
+     * @return el objeto o los objetos que concuerde con la búsqueda
      */
-    public function show(Libro $libro)
+    public function search(Request $request)
     {
-        //
+        $libros = Libro::where('titulo', 'like', '%'.$request->titulo.'%')
+            ->where('isbn', 'like', '%'.$request->isbn.'%')
+            ->where('autor_id', 'like', '%'.$request->autor_id.'%')->paginate(10);
+
+        return view('vistaLibro', ['libros' => $libros]);
+    }
+
+    /**
+     * Filtros de búsqueda de reporte,tenemos que guardar en una variable la comprobación de si autor, ubicacion o estado
+     * vienen vacíos o con algún valor, si vienen vacíos, le asignamos '%%' para que busque todos los valores.
+     */
+    public function reportSearch(Request $request)
+    {
+        $autores = Autor::all();
+        $ubicaciones = Ubicacion::all();
+
+        $autor = is_null($request->autor_id) ? '%%' : $request->autor_id;
+        $ubicacion = is_null($request->ubicacion_id) ? '%%' : $request->ubicacion_id;
+        $estado = is_null($request->estado) ? '%%' : $request->estado;
+
+        $libros = Libro::where('titulo', 'like', '%'.$request->titulo.'%')
+            ->where('autor_id', 'like', $autor)
+            ->where('ubicacion_id', 'like', $ubicacion)
+            ->where('estado', 'like', $estado)
+            ->paginate(12);
+
+        $estados = Libro::select('estado')->distinct()->get();
+
+        return view('reporteBiblioteca', ['libros' => $libros], compact('autores', 'ubicaciones', 'estados'));
     }
 
     /**
@@ -60,7 +104,9 @@ class LibroController extends Controller
      */
     public function edit(Libro $libro)
     {
-        //
+        $autores = Autor::all();
+        $ubicaciones = Ubicacion::all();
+        return view('editarLibro', compact('autores', 'ubicaciones', 'libro'));
     }
 
     /**
@@ -68,7 +114,9 @@ class LibroController extends Controller
      */
     public function update(Request $request, Libro $libro)
     {
-        //
+        $libro->update($request->all());
+        $libro->save();
+        return redirect()->route('libros.index')->with('mensaje', 'Libro actualizado correctamente');
     }
 
     /**
