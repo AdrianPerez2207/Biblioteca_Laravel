@@ -88,7 +88,8 @@ class AutorController extends Controller
     public function destroy(Autor $autor)
     {
         $autor->delete();
-        return redirect()->route('autores.index');
+        return back();
+//        return redirect()->route('autores.index');
     }
 
     /*

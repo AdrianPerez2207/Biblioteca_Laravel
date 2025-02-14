@@ -125,7 +125,8 @@ class LibroController extends Controller
     public function destroy(Libro $libro)
     {
         $libro->delete();
-        return redirect()->route('libros.index');
+        return back();
+//        return redirect()->route('libros.index');
     }
     public function prestar(Request $request, Libro $libro)
     {

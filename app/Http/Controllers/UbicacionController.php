@@ -85,6 +85,7 @@ class UbicacionController extends Controller
     public function destroy(Ubicacion $ubicacion)
     {
         $ubicacion->delete();
-        return redirect()->route('ubicaciones.index');
+        return back();
+//        return redirect()->route('ubicaciones.index');
     }
 }
